@@ -32,11 +32,11 @@ func main() {
 
 	switch remainder {
 	case 0:
-		fmt.Printf("The division wa exact")
+		printMe("The division wa exact")
 	case 1, 2:
-		fmt.Printf("The division was close")
+		printMe("The division was close")
 	default:
-		fmt.Printf("The division was not close")
+		printMe("The division was not close")
 	}
 }
 
