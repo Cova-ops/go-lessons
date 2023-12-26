@@ -1,0 +1,156 @@
+basePath: /api
+definitions:
+  account.ResponseGetBalance:
+    properties:
+      message:
+        type: string
+      meta:
+        $ref: '#/definitions/api.CoinBalanceResponse'
+      status:
+        type: string
+    type: object
+  account.ResponseGetUsers:
+    properties:
+      message:
+        type: string
+      meta:
+        items:
+          type: string
+        type: array
+      status:
+        type: string
+    type: object
+  api.CoinBalanceResponse:
+    properties:
+      balance:
+        type: integer
+    type: object
+  api.NewUserBody:
+    properties:
+      coins:
+        type: integer
+      token:
+        type: string
+      username:
+        type: string
+    required:
+    - coins
+    - token
+    - username
+    type: object
+  api.Response:
+    properties:
+      message:
+        type: string
+      meta: {}
+      status:
+        type: string
+    type: object
+  api.UpdateCoinBalanceBody:
+    properties:
+      coins:
+        type: integer
+    required:
+    - coins
+    type: object
+host: localhost:8000
+info:
+  contact: {}
+  description: This is a sample server celler server.
+  title: Go Lessons API
+  version: "1.0"
+paths:
+  /v1/account/coins:
+    get:
+      description: Get all users in DB.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/account.ResponseGetUsers'
+      summary: Get all users
+      tags:
+      - account/coins
+  /v1/account/coins/{username}:
+    delete:
+      description: Remove user in DB.
+      parameters:
+      - description: Username
+        in: path
+        name: username
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "202":
+          description: Accepted
+          schema:
+            $ref: '#/definitions/api.Response'
+      summary: Remove user
+      tags:
+      - account/coins
+    get:
+      description: Get user balance in DB.
+      parameters:
+      - description: Username
+        in: path
+        name: username
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/account.ResponseGetBalance'
+      summary: Get user balance
+      tags:
+      - account/coins
+    post:
+      description: Create new user in DB.
+      parameters:
+      - description: Body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/api.NewUserBody'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.Response'
+      summary: Create new user
+      tags:
+      - account/coins
+    put:
+      description: Update user balance in DB.
+      parameters:
+      - description: Username
+        in: path
+        name: username
+        required: true
+        type: string
+      - description: Body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpdateCoinBalanceBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.Response'
+      summary: Update user balance
+      tags:
+      - account/coins
+swagger: "2.0"

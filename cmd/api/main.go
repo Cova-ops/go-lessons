@@ -7,6 +7,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	log "github.com/sirupsen/logrus"
 
+	_ "go-lessons/docs"
 	"go-lessons/internal/handlers"
 )
 
